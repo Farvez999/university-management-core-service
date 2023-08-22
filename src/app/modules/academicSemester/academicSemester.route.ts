@@ -4,6 +4,7 @@ import { AcademicSemesterValidation } from './academicSemester.validation';
 import { AcademicSemesterController } from './academicSemesterController';
 const router = express.Router();
 
+router.get('/', AcademicSemesterController.getAllForDB);
 router.post(
   '/',
   validateRequest(AcademicSemesterValidation.create),
