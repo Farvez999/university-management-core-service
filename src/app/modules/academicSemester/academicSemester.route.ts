@@ -5,6 +5,7 @@ import { AcademicSemesterController } from './academicSemesterController';
 const router = express.Router();
 
 router.get('/', AcademicSemesterController.getAllForDB);
+router.get('/:id', AcademicSemesterController.getDataById);
 router.post(
   '/',
   validateRequest(AcademicSemesterValidation.create),

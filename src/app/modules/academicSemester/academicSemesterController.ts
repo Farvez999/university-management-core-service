@@ -17,9 +17,14 @@ const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllForDB = catchAsync(async (req: Request, res: Response) => {
-  const filters = pick(req.query, ['searchTerm', 'code', 'year']);
+  const filters = pick(req.query, [
+    'searchTerm',
+    'code',
+    'startMonth',
+    'endMonth',
+  ]);
   const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
-  const result = await AcademicSemesterServices.getAllForDB(filters,options);
+  const result = await AcademicSemesterServices.getAllForDB(filters, options);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -29,7 +34,18 @@ const getAllForDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getDataById = catchAsync(async (req: Request, res: Response) => {
+  const result = await AcademicSemesterServices.getDataById(req.params.id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Academic Semester data fetched',
+    data: result,
+  });
+});
+
 export const AcademicSemesterController = {
   insertIntoDB,
   getAllForDB,
+  getDataById,
 };
